@@ -1,0 +1,26 @@
+name: CI
+on:
+  push:
+  pull_request:
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: swift build -Xswiftc -warnings-as-errors
+      - run: swift test -Xswiftc -warnings-as-errors
+  apple:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: swift build -Xswiftc -warnings-as-errors
+      - run: swift test -Xswiftc -warnings-as-errors
+      - name: Build Apple platforms
+        run: |
+          for destination in \
+            'generic/platform=iOS Simulator' \
+            'generic/platform=watchOS Simulator' \
+            'generic/platform=tvOS Simulator' \
+            'generic/platform=visionOS Simulator'; do
+            xcodebuild -scheme StreakKit -destination "$destination" build CODE_SIGNING_ALLOWED=NO SWIFT_TREAT_WARNINGS_AS_ERRORS=YES
+          done
