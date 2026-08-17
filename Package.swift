@@ -5,11 +5,11 @@ import PackageDescription
 let package = Package(
     name: "StreakKit",
     platforms: [
-        .iOS(.v18),
-        .macOS(.v15),
-        .watchOS(.v11),
-        .tvOS(.v18),
-        .visionOS(.v2)
+        .iOS(.v13),
+        .macOS(.v10_15),
+        .watchOS(.v6),
+        .tvOS(.v13),
+        .visionOS(.v1)
     ],
     products: [
         .library(
